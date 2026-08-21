@@ -1,0 +1,388 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>红楼梦 H5</title>
+    <style>
+      :root {
+        font-family: "Songti SC", "Noto Serif SC", "Microsoft YaHei", serif;
+        background: url("./images/bg-1.webp") center / cover no-repeat;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+      }
+
+      body {
+      }
+
+      .viewport {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: url("./images/bg-1.webp") center / cover no-repeat;
+        opacity: 1;
+        filter: blur(0);
+        transition: opacity 0.5s ease, filter 0.5s ease;
+      }
+
+      .viewport.is-leaving {
+        opacity: 0;
+        filter: blur(3px);
+      }
+
+      .page {
+        position: relative;
+        width: 375px;
+        height: 812px;
+        transform-origin: center center;
+        flex: 0 0 auto;
+        overflow: hidden;
+        background: url("./images/bg-1.webp") center / cover no-repeat;
+      }
+
+      .page img {
+        position: absolute;
+        display: block;
+        height: auto;
+        user-select: none;
+        pointer-events: none;
+        -webkit-user-drag: none;
+      }
+
+      .cloud {
+        position: absolute;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .cloud svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+
+      .plum-branch {
+        top: -35px;
+        right: -32px;
+        width: 214px;
+        opacity: 0.71;
+        transform-origin: 182px 21px;
+        animation: branch-sway 5.5s ease-in-out infinite;
+      }
+
+      .fund-logo {
+        top: 32px;
+        left: 97.5px;
+        width: 180px;
+      }
+
+      .kite {
+        top: 159px;
+        left: 48px;
+        width: 46px;
+        transform: rotate(-15deg);
+        transform-origin: 55% 58%;
+        z-index: 10;
+        animation: kite-drift 5.2s ease-in-out infinite;
+        will-change: transform;
+      }
+
+      .kite-line {
+        position: absolute;
+        inset: 0;
+        width: 375px;
+        height: 812px;
+        transform: translateY(-60px);
+        transform-origin: 356px 730px;
+        pointer-events: none;
+        z-index: 1;
+        animation: kite-line-drift 5.2s ease-in-out infinite;
+        will-change: transform;
+      }
+
+      .cloud-left {
+        top: 271px;
+        left: 60px;
+        width: 110px;
+        height: 41px;
+        animation: cloud-float-left 6s ease-in-out infinite;
+      }
+
+      .cloud-right {
+        top: 440px;
+        right: 28px;
+        width: 138px;
+        height: 51px;
+        animation: cloud-float-right 7s ease-in-out infinite;
+      }
+
+      .bookmark-panel {
+        top: 192px;
+        left: 153px;
+        width: 69px;
+        z-index: 2;
+      }
+
+      .garden {
+        left: 0;
+        bottom: 0;
+        width: 375px;
+        opacity: 0.6;
+        z-index: 0;
+      }
+
+      .enter-button {
+        left: 111px;
+        bottom: 140px;
+        width: 153px;
+        z-index: 10;
+        animation: button-breathe 2.4s ease-in-out infinite;
+      }
+
+      .enter-link {
+        position: absolute;
+        left: 111px;
+        bottom: 140px;
+        width: 153px;
+        height: 42px;
+        z-index: 11;
+        display: block;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .publisher-logo {
+        left: 127.5px;
+        bottom: 51px;
+        width: 120px;
+        z-index: 2;
+      }
+
+      .petal {
+        z-index: 3;
+        animation: petal-fall 9s linear infinite;
+      }
+
+      .petal-a { top: 140px; left: 96px; width: 24px; animation-delay: 0s; }
+      .petal-b { top: 255px; left: 29px; width: 20px; animation-delay: -3s; }
+      .petal-c { top: 391px; right: 19px; width: 34px; animation-delay: -6s; }
+      .petal-d { left: 82px; bottom: 185px; width: 38px; animation-delay: -2s; }
+      .petal-e { left: 38px; bottom: 39px; width: 54px; animation-delay: -8s; }
+      .petal-f { top: 183px; right: 28px; width: 22px; animation-delay: -4s; }
+      .petal-g { top: 512px; left: 44px; width: 28px; animation-delay: -7s; }
+      .petal-h { top: 585px; right: 58px; width: 32px; animation-delay: -1s; }
+      .petal-i { top: 77px; left: 160px; width: 18px; animation-delay: -5s; }
+      .petal-j { top: 114px; left: 30px; width: 20px; animation-delay: -9s; }
+      .petal-k { top: 284px; right: 86px; width: 24px; animation-delay: -6.5s; }
+      .petal-l { top: 422px; left: 118px; width: 30px; animation-delay: -2.5s; }
+      .petal-m { top: 633px; right: 24px; width: 26px; animation-delay: -10s; }
+      .petal-n { top: 49px; right: 12px; width: 24px; animation-delay: -1.2s; }
+      .petal-o { top: 195px; right: 72px; width: 18px; animation-delay: -4.4s; }
+      .petal-p { top: 341px; right: 18px; width: 30px; animation-delay: -7.6s; }
+      .petal-q { top: 471px; right: 120px; width: 22px; animation-delay: -3.1s; }
+      .petal-r { top: 666px; right: 48px; width: 34px; animation-delay: -6.2s; }
+
+      @keyframes petal-fall {
+        0% {
+          transform: translate3d(42px, -30px, 0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        45% {
+          transform: translate3d(-28px, 120px, 0) rotate(-24deg);
+        }
+        100% {
+          transform: translate3d(-92px, 260px, 0) rotate(-72deg);
+          opacity: 0.72;
+        }
+      }
+
+      @keyframes cloud-float-left {
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(-7px, 3px, 0); }
+      }
+
+      @keyframes cloud-float-right {
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(7px, -3px, 0); }
+      }
+
+      @keyframes branch-sway {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(1.8deg); }
+      }
+
+      @keyframes button-breathe {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.045); }
+      }
+
+      @keyframes kite-drift {
+        0%, 100% { transform: translate3d(0, 0, 0) rotate(-15deg); }
+        25% { transform: translate3d(4px, -5px, 0) rotate(-11deg); }
+        50% { transform: translate3d(0, -10px, 0) rotate(-16deg); }
+        75% { transform: translate3d(-4px, -4px, 0) rotate(-19deg); }
+      }
+
+      @keyframes kite-line-drift {
+        0%, 100% { transform: translate3d(0, -60px, 0) rotate(0deg); }
+        25% { transform: translate3d(3px, -64px, 0) rotate(0.22deg); }
+        50% { transform: translate3d(0, -68px, 0) rotate(-0.12deg); }
+        75% { transform: translate3d(-3px, -63px, 0) rotate(-0.25deg); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .kite,
+        .kite-line {
+          animation: none;
+        }
+
+        .viewport {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viewport">
+      <main class="page" aria-label="Loading 椤甸潰">
+        <img class="plum-branch" src="./images/plum_branch.png" alt="" />
+        <img class="fund-logo" src="./images/logo_fund.png" alt="" />
+        <svg class="kite-line" viewBox="0 0 375 812" aria-hidden="true" focusable="false">
+          <path d="M 74 264 C 76 322 82 395 146 482 C 204 558 326 574 356 730" fill="none" stroke="#d6b77e" stroke-width="1.2" stroke-linecap="round" opacity="0.82" />
+        </svg>
+        <img class="kite" src="./images/kite3.webp" alt="" />
+        <div class="cloud cloud-left" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 381.33 228.63">
+            <defs>
+              <style>
+                .cloud-left-line-round,
+                .cloud-left-line {
+                  fill: none;
+                  stroke: #e4c689;
+                  stroke-miterlimit: 10;
+                  stroke-width: 7px;
+                }
+
+                .cloud-left-line-round {
+                  stroke-linecap: round;
+                }
+
+                .cloud-left-dot {
+                  fill: #e4c689;
+                }
+              </style>
+            </defs>
+            <path class="cloud-left-line-round" d="M502.35,713.14l-224.67.37a23.07,23.07,0,0,0-17.76,20.91c-.56,11,7.35,21.16,18.72,23.47l135.65.77a22,22,0,0,1,.35,42.66l-242.48.38a21.59,21.59,0,0,0-.76,43l222.66-.38a22.79,22.79,0,0,1,.77,45L256.89,889a23.32,23.32,0,0,0-1.49,45.44l185.33.18" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-line" d="M300.22,713.45c-9.05-.16-16.25,9.57-16.85,20.38-.68,12.46,7.47,25.15,18.06,24.08" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-line" d="M189.35,801.63c-8.82-.15-15.83,9.27-16.41,19.73-.67,12,7.27,24.34,17.58,23.3" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-line" d="M277.47,889.26c-8.81-.16-15.82,9.73-16.41,20.7-.66,12.65,7.28,25.54,17.59,24.45" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-line" d="M395.45,758.62c8.82-.15,15.83,9.13,16.41,19.43.67,11.88-7.28,24-17.59,23" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-line" d="M379.19,758.62c8.81-.15,15.82,9.13,16.41,19.43.66,11.88-7.28,24-17.59,23" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-line" d="M359.55,844.53c8.82-.16,15.83,9.62,16.41,20.48.67,12.51-7.27,25.26-17.59,24.19" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-dot" d="M502.32,709.75l26.88,2.8a.5.5,0,0,1,.46.55.51.51,0,0,1-.45.45l-26.83,3.2a3.52,3.52,0,1,1-.84-7A4.08,4.08,0,0,1,502.32,709.75Z" transform="translate(-148.33 -709.64)" />
+            <path class="cloud-left-dot" d="M441.51,931.24l26.88,2.8a.51.51,0,0,1,0,1l-26.84,3.19a3.52,3.52,0,1,1-.83-7A4.08,4.08,0,0,1,441.51,931.24Z" transform="translate(-148.33 -709.64)" />
+          </svg>
+        </div>
+        <div class="cloud cloud-right" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 461.17 149.58">
+            <defs>
+              <style>
+                .cloud-right-line {
+                  fill: none;
+                  stroke: #e4c689;
+                  stroke-miterlimit: 10;
+                  stroke-width: 7px;
+                }
+
+                .cloud-right-dot {
+                  fill: #e4c689;
+                }
+              </style>
+            </defs>
+            <path class="cloud-right-line" d="M421.84,25.37" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-line" d="M470.1,36.92l-248.77.5C206.3,36.17,193.8,48,193.64,61.3c-.16,13.84,13,26.22,28.58,24.39h188.7a22.86,22.86,0,0,1,.51,45.71l-121.65,2c-10.93,3.49-17.72,14.09-16.34,24.64,1.18,9,8.07,16.55,17.35,18.92l333.2,2.5" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-line" d="M241.11,37.39c-14.26-.17-25.6,10.4-26.54,22.14C213.49,73.06,226.33,86.84,243,85.69" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-line" d="M395.65,85.69c10.43-1.16,19.3,10,19.27,23.12a23.76,23.76,0,0,1-18.48,23" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-line" d="M375.72,85.69c10.42-1.16,19.3,10,19.26,23.12a23.75,23.75,0,0,1-18.48,23" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-line" d="M315.7,133.05c-14.3.58-24.53,12.92-22.91,25,1.38,10.36,11.25,19,23.34,19" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-dot" d="M471.14,33.42l26.86,3a.51.51,0,0,1,.45.56.52.52,0,0,1-.45.45l-26.86,3a3.52,3.52,0,1,1-.78-7A5.08,5.08,0,0,1,471.14,33.42Z" transform="translate(-190.14 -33.4)" />
+            <path class="cloud-right-dot" d="M624,175.94l26.86,3a.51.51,0,0,1,.45.56.52.52,0,0,1-.45.45l-26.86,3a3.52,3.52,0,1,1-.78-7A4.06,4.06,0,0,1,624,175.94Z" transform="translate(-190.14 -33.4)" />
+          </svg>
+        </div>
+        <img class="bookmark-panel" src="./images/bookmark2.png" alt="" />
+        <img class="garden" src="./images/garden_silhouette2.webp" alt="" />
+        <img class="enter-button" src="./images/button_frame3.svg" alt="" />
+        <a class="enter-link" href="home.html" aria-label="进入首页"></a>
+        <img class="publisher-logo" src="./images/logo_publisher.png" alt="" />
+        <img class="petal petal-a" src="./images/petals/petal_03.webp" alt="" />
+        <img class="petal petal-b" src="./images/petals/petal_06.webp" alt="" />
+        <img class="petal petal-c" src="./images/petals/petal_09.webp" alt="" />
+        <img class="petal petal-d" src="./images/petals/petal_12.webp" alt="" />
+        <img class="petal petal-e" src="./images/petals/petal_14.webp" alt="" />
+        <img class="petal petal-f" src="./images/petals/petal_01.webp" alt="" />
+        <img class="petal petal-g" src="./images/petals/petal_05.webp" alt="" />
+        <img class="petal petal-h" src="./images/petals/petal_10.webp" alt="" />
+        <img class="petal petal-i" src="./images/petals/petal_13.webp" alt="" />
+        <img class="petal petal-j" src="./images/petals/petal_02.webp" alt="" />
+        <img class="petal petal-k" src="./images/petals/petal_04.webp" alt="" />
+        <img class="petal petal-l" src="./images/petals/petal_07.webp" alt="" />
+        <img class="petal petal-m" src="./images/petals/petal_11.webp" alt="" />
+        <img class="petal petal-n" src="./images/petals/petal_08.webp" alt="" />
+        <img class="petal petal-o" src="./images/petals/petal_15.png" alt="" />
+        <img class="petal petal-p" src="./images/petals/petal_02.webp" alt="" />
+        <img class="petal petal-q" src="./images/petals/petal_04.webp" alt="" />
+        <img class="petal petal-r" src="./images/petals/petal_07.webp" alt="" />
+      </main>
+    </div>
+    <script>
+      const DESIGN_WIDTH = 375;
+      const DESIGN_HEIGHT = 812;
+
+      function resizePage() {
+        const page = document.querySelector(".page");
+        if (!page) return;
+        const scale = Math.min(window.innerWidth / DESIGN_WIDTH, window.innerHeight / DESIGN_HEIGHT);
+        page.style.transform = `scale(${scale})`;
+      }
+
+      window.addEventListener("resize", resizePage);
+      window.addEventListener("load", resizePage);
+
+      const enterLink = document.querySelector(".enter-link");
+      enterLink?.addEventListener("click", (event) => {
+        sessionStorage.setItem("redmansion-music-autoplay", "true");
+        const transitionAudio = new Audio("./bg.MP3");
+        transitionAudio.volume = 0.4;
+        transitionAudio.play().catch(() => {});
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        event.preventDefault();
+        document.querySelector(".viewport")?.classList.add("is-leaving");
+        window.setTimeout(() => {
+          window.location.href = enterLink.href;
+        }, 480);
+      });
+
+      resizePage();
+    </script>
+  </body>
+</html>

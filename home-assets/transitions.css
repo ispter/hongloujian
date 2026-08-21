@@ -1,0 +1,347 @@
+@font-face {
+  font-family: "HYBeiWeiXieJing";
+  src: url("../fonts/HYBeiWeiXieJingW.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --scroll-top: -20px;
+  --scroll-travel: 768px;
+}
+
+.copyright-underlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: url("../images/home/bg-01.webp") center / cover no-repeat;
+  pointer-events: none;
+}
+
+.copyright-underlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(25, 18, 12, 0.26);
+}
+
+.copyright-underlay .lantern {
+  visibility: hidden;
+}
+
+body.copyright-active #root {
+  position: relative;
+  z-index: 1;
+}
+
+body.copyright-active .viewport {
+  z-index: 1;
+  background: transparent;
+}
+
+body.copyright-active .viewport::before {
+  opacity: 0;
+}
+
+body.copyright-active .copyright-page {
+  background: transparent;
+}
+
+body.copyright-active #root .copyright-button {
+  opacity: 0.42;
+  filter: brightness(0.55) saturate(0.7);
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.copyright-button {
+  right: 15px;
+  bottom: 15px;
+  width: 44px;
+}
+
+.hotspot-copyright {
+  right: 12px;
+  bottom: 12px;
+  width: 50px;
+  height: 50px;
+}
+
+.nav-today {
+  top: 16px;
+  left: 18px;
+  width: 65px;
+}
+
+.nav-search {
+  top: 16px;
+  left: 94px;
+  width: 120px;
+}
+
+.hotspot-today {
+  top: 14px;
+  left: 16px;
+  width: 70px;
+  height: 42px;
+}
+
+.hotspot-search {
+  top: 14px;
+  left: 91px;
+  width: 126px;
+  height: 42px;
+}
+
+.inline-home-search {
+  position: absolute;
+  z-index: 12;
+  top: 16px;
+  left: 94px;
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 37px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid #8b2505;
+  background: rgba(217, 160, 126, 0.3);
+  transition: width 0.48s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.inline-home-search.is-open {
+  width: 255px;
+  box-shadow: 0 3px 10px rgba(62, 31, 20, 0.18);
+}
+
+.inline-search-icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 35px;
+  background: url("../images/home/搜索.svg") 8px center / 120px auto no-repeat;
+}
+
+.inline-home-search input {
+  width: 207px;
+  min-width: 0;
+  padding: 0 8px 0 2px;
+  border: 0;
+  outline: 0;
+  color: #47251c;
+  background: transparent;
+  font-family: HonglouKaiti, KaiTi, STKaiti, serif;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.22s ease 0.14s;
+}
+
+.inline-home-search.is-open input { opacity: 1; }
+.inline-home-search input::placeholder { color: rgba(71, 37, 28, 0.64); }
+body.inline-search-active .nav-search { opacity: 0; }
+
+.copyright-page-art {
+  display: none !important;
+}
+
+.copyright-scroll-sheet {
+  position: absolute;
+  top: var(--scroll-top);
+  left: 42px;
+  z-index: 20;
+  width: 309px;
+  height: 776px;
+  padding: 94px 26px 32px;
+  overflow: hidden;
+  border-right: 2px solid rgba(126, 91, 52, 0.46);
+  border-left: 2px solid rgba(126, 91, 52, 0.46);
+  background:
+    linear-gradient(90deg, rgba(121, 79, 37, 0.17), transparent 8% 92%, rgba(121, 79, 37, 0.17)),
+    linear-gradient(rgba(247, 238, 215, 0.94), rgba(239, 224, 190, 0.94)),
+    url("../images/home/juan.jpg") center / cover no-repeat;
+  box-shadow:
+    -14px 3px 18px rgba(30, 19, 11, 0.46),
+    14px 3px 18px rgba(30, 19, 11, 0.46),
+    0 12px 22px rgba(30, 19, 11, 0.38);
+  color: #201814;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  text-align: center;
+  animation: copyright-scroll-unroll 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top center;
+  will-change: clip-path, opacity;
+}
+
+.copyright-scroll-title {
+  margin: 0 0 30px;
+  color: #17110e;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 7px;
+}
+
+.copyright-work-title {
+  margin: 0 0 20px;
+  color: #8b2505;
+  font-size: 21px;
+  font-weight: 400;
+  font-family: "HYBeiWeiXieJing", "HonglouKaiti", KaiTi, STKaiti, serif !important;
+  font-style: normal;
+}
+
+.copyright-project,
+.copyright-isbn {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.copyright-section-title {
+  width: 220px;
+  margin: 27px auto 17px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #9d3b20;
+  color: #8b2505;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+
+.copyright-details {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.copyright-details div {
+  display: flex;
+  justify-content: center;
+}
+
+.copyright-details dt,
+.copyright-details dd {
+  margin: 0;
+}
+
+.copyright-details dt {
+  font-weight: 700;
+}
+
+.copyright-date,
+.copyright-emphasis {
+  font-weight: 700;
+}
+
+.copyright-emphasis {
+  margin: 0 0 7px;
+  font-size: 14px;
+}
+
+.copyright-notice {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.copyright-page::after {
+  content: "";
+  position: absolute;
+  top: var(--scroll-top);
+  left: 34px;
+  z-index: 30;
+  width: 325px;
+  height: 17px;
+  border: 1px solid rgba(117, 52, 32, 0.55);
+  border-radius: 9px;
+  background:
+    linear-gradient(90deg, #7a452d 0 4%, transparent 4% 96%, #7a452d 96% 100%),
+    linear-gradient(180deg, #f8efd9 0%, #d9c49c 48%, #b79868 52%, #efe2c5 100%);
+  box-shadow:
+    0 4px 8px rgba(50, 28, 16, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.75);
+  animation: copyright-scroll-rod-down 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+  pointer-events: none;
+  will-change: translate;
+}
+
+.copyright-back {
+  display: none !important;
+}
+
+.copyright-page.is-closing::after {
+  animation: copyright-scroll-rod-up 0.68s cubic-bezier(0.64, 0, 0.78, 0) both;
+}
+
+.copyright-scroll-sheet.is-closing {
+  animation: copyright-scroll-roll-up 0.68s cubic-bezier(0.64, 0, 0.78, 0) both;
+  pointer-events: none;
+}
+
+.copyright-lantern {
+  pointer-events: none;
+  z-index: 100;
+  animation:
+    lantern-sway 3.2s ease-in-out infinite,
+    copyright-lantern-pull-down 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: translate;
+}
+
+.copyright-lantern.is-closing {
+  animation:
+    lantern-sway 3.2s ease-in-out infinite,
+    copyright-lantern-pull-up 0.68s cubic-bezier(0.64, 0, 0.78, 0) both;
+}
+
+@keyframes copyright-scroll-unroll {
+  from {
+    opacity: 0.8;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes copyright-scroll-roll-up {
+  from {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+
+  to {
+    opacity: 0.8;
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes copyright-scroll-rod-down {
+  from { translate: 0 0; }
+  to { translate: 0 var(--scroll-travel); }
+}
+
+@keyframes copyright-scroll-rod-up {
+  from { translate: 0 var(--scroll-travel); }
+  to { translate: 0 0; }
+}
+
+@keyframes copyright-lantern-pull-down {
+  from { translate: 0 0; }
+  to { translate: 0 var(--lantern-travel, 706px); }
+}
+
+@keyframes copyright-lantern-pull-up {
+  from { translate: 0 var(--lantern-travel, 706px); }
+  to { translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copyright-scroll-sheet,
+  .copyright-page::after,
+  .copyright-lantern {
+    animation: none;
+  }
+}
