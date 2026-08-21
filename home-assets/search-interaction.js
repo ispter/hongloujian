@@ -20,7 +20,7 @@
     inlineSearch = document.createElement("label");
     inlineSearch.className = "inline-home-search";
     inlineSearch.setAttribute("aria-label", "搜索红楼岁时内容");
-    inlineSearch.innerHTML = `<span class="inline-search-icon" aria-hidden="true"></span><input type="search" placeholder="输入人物、节气、节日或日期" autocomplete="off" />`;
+    inlineSearch.innerHTML = `<span class="inline-search-icon" aria-hidden="true"></span><input type="search" placeholder="输入人物、气节..." autocomplete="off" />`;
     homePage.appendChild(inlineSearch);
     document.body.classList.add("inline-search-active");
     requestAnimationFrame(() => {

@@ -2,12 +2,12 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>红楼梦 H5</title>
     <style>
       :root {
         font-family: "Songti SC", "Noto Serif SC", "Microsoft YaHei", serif;
-        background: url("./images/bg-1.webp") center / cover no-repeat;
+        background: url("./images/bg.png") center / cover no-repeat;
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -20,7 +20,10 @@
 
       html,
       body {
+        width: 100%;
+        height: 100%;
         margin: 0;
+        overflow: hidden;
       }
 
       body {
@@ -33,7 +36,7 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        background: url("./images/bg-1.webp") center / cover no-repeat;
+        background: url("./images/bg.png") center / cover no-repeat;
         opacity: 1;
         filter: blur(0);
         transition: opacity 0.5s ease, filter 0.5s ease;
@@ -51,7 +54,7 @@
         transform-origin: center center;
         flex: 0 0 auto;
         overflow: hidden;
-        background: url("./images/bg-1.webp") center / cover no-repeat;
+        background: url("./images/bg.png") center / cover no-repeat;
       }
 
       .page img {
@@ -359,12 +362,18 @@
       function resizePage() {
         const page = document.querySelector(".page");
         if (!page) return;
-        const scale = Math.min(window.innerWidth / DESIGN_WIDTH, window.innerHeight / DESIGN_HEIGHT);
+        const viewportWidth = window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth;
+        const viewportHeight = window.visualViewport?.height || document.documentElement.clientHeight || window.innerHeight;
+        const isMobile = viewportWidth <= 600;
+        const scale = isMobile
+          ? viewportWidth / DESIGN_WIDTH
+          : Math.min(viewportWidth / DESIGN_WIDTH, viewportHeight / DESIGN_HEIGHT);
         page.style.transform = `scale(${scale})`;
       }
 
       window.addEventListener("resize", resizePage);
       window.addEventListener("load", resizePage);
+      window.visualViewport?.addEventListener("resize", resizePage);
 
       const enterLink = document.querySelector(".enter-link");
       enterLink?.addEventListener("click", (event) => {
