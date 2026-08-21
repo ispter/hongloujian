@@ -7,7 +7,7 @@
     <style>
       :root {
         font-family: "Songti SC", "Noto Serif SC", "Microsoft YaHei", serif;
-        background: url("./images/bg.png") center / cover no-repeat;
+        background: url("./images/bg.jpg") center / cover no-repeat;
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -36,7 +36,7 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        background: url("./images/bg.png") center / cover no-repeat;
+        background: url("./images/bg.jpg") center / cover no-repeat;
         opacity: 1;
         filter: blur(0);
         transition: opacity 0.5s ease, filter 0.5s ease;
@@ -54,7 +54,17 @@
         transform-origin: center center;
         flex: 0 0 auto;
         overflow: hidden;
-        background: url("./images/bg.png") center / cover no-repeat;
+        background: url("./images/bg.jpg") center / cover no-repeat;
+      }
+
+      @media (max-width: 600px) {
+        .viewport {
+          align-items: flex-start;
+        }
+
+        .page {
+          transform-origin: top center;
+        }
       }
 
       .page img {

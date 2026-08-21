@@ -9,7 +9,7 @@
 .copyright-page,
 .search-page,
 .detail-page {
-  background-image: url("../images/bg.png") !important;
+  background-image: url("../images/bg.jpg") !important;
 }
 
 :root {
@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: url("../images/bg.png") center / cover no-repeat;
+  background: url("../images/bg.jpg") center / cover no-repeat;
   pointer-events: none;
 }
 
@@ -244,6 +244,25 @@ body.inline-search-active .nav-search { opacity: 0; }
   height: 15px;
 }
 
+.calendar-event.event-solar-term {
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  max-width: 46px;
+  margin-top: 3px;
+}
+
+.calendar-event.event-solar-term img {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.calendar-event.event-solar-term span {
+  max-width: none;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
 .calendar-event.event-birthday img {
   width: 14px;
   height: 15px;
@@ -252,6 +271,25 @@ body.inline-search-active .nav-search { opacity: 0; }
 .calendar-event.event-festival img {
   width: 12px;
   height: 15px;
+}
+
+.calendar-event.event-festival {
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  max-width: 46px;
+  margin-top: 3px;
+}
+
+.calendar-event.event-festival img {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.calendar-event.event-festival span {
+  max-width: none;
+  margin-top: 0;
+  white-space: nowrap;
 }
 
 .copyright-page-art {
