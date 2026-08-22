@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>红楼梦 H5</title>
+    <title>京华岁时红楼笺</title>
     <style>
       :root {
         font-family: "Songti SC", "Noto Serif SC", "Microsoft YaHei", serif;
@@ -66,6 +66,16 @@
         .page {
           transform-origin: center center;
           background: transparent;
+          overflow: visible;
+        }
+
+        .garden {
+          left: var(--page-bleed-left, 0);
+          width: var(--page-bleed-width, 375px);
+        }
+
+        .plum-branch {
+          right: var(--page-bleed-right, -32px);
         }
       }
 
@@ -379,6 +389,17 @@
         const scale = Math.min(viewportWidth / DESIGN_WIDTH, viewportHeight / DESIGN_HEIGHT);
         page.style.transform = `scale(${scale})`;
         page.style.marginBottom = "0px";
+        if (viewportWidth <= 600) {
+          const bleedWidth = viewportWidth / scale;
+          const bleedSide = (bleedWidth - DESIGN_WIDTH) / 2;
+          page.style.setProperty("--page-bleed-width", `${bleedWidth}px`);
+          page.style.setProperty("--page-bleed-left", `${-bleedSide}px`);
+          page.style.setProperty("--page-bleed-right", `${-bleedSide}px`);
+        } else {
+          page.style.removeProperty("--page-bleed-width");
+          page.style.removeProperty("--page-bleed-left");
+          page.style.removeProperty("--page-bleed-right");
+        }
       }
 
       window.addEventListener("resize", resizePage);
