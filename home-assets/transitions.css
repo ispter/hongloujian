@@ -12,6 +12,60 @@
   background-image: url("../images/bg.jpg") !important;
 }
 
+@media (max-width: 600px) {
+  .home-page {
+    overflow: visible;
+  }
+
+  .home-page .month-scene {
+    left: var(--scene-bleed-left, 0);
+    width: var(--scene-bleed-width, 393px);
+  }
+
+  .home-page .calendar-panel {
+    left: 2px;
+    width: 389px;
+  }
+
+  .home-page .calendar-border {
+    width: 389px;
+  }
+
+  .home-page .calendar-grid {
+    left: 18.5px;
+  }
+}
+
+.month-slide-snapshot {
+  position: fixed !important;
+  z-index: 50 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: translate;
+}
+
+.month-slide-snapshot.slide-out-left { translate: -110vw 0; }
+.month-slide-snapshot.slide-out-right { translate: 110vw 0; }
+
+.home-page.slide-in-right {
+  animation: month-slide-in-right 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.home-page.slide-in-left {
+  animation: month-slide-in-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes month-slide-in-right {
+  from { translate: 110vw 0; }
+  to { translate: 0 0; }
+}
+
+@keyframes month-slide-in-left {
+  from { translate: -110vw 0; }
+  to { translate: 0 0; }
+}
+
 :root {
   --scroll-top: -20px;
   --scroll-travel: 768px;
@@ -299,11 +353,11 @@ body.inline-search-active .nav-search { opacity: 0; }
 .copyright-scroll-sheet {
   position: absolute;
   top: var(--scroll-top);
-  left: 22px;
+  left: 8px;
   z-index: 20;
-  width: 349px;
+  width: 377px;
   height: 776px;
-  padding: 94px 32px 32px;
+  padding: 94px 34px 32px;
   overflow: hidden;
   border-right: 2px solid rgba(126, 91, 52, 0.46);
   border-left: 2px solid rgba(126, 91, 52, 0.46);
@@ -336,8 +390,8 @@ body.inline-search-active .nav-search { opacity: 0; }
   margin: 0 0 20px;
   color: #8b2505;
   font-size: 21px;
-  font-weight: 400;
-  font-family: "HYBeiWeiXieJing", "HonglouKaiti", KaiTi, STKaiti, serif !important;
+  font-weight: 600;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif !important;
   font-style: normal;
 }
 
@@ -349,7 +403,7 @@ body.inline-search-active .nav-search { opacity: 0; }
 }
 
 .copyright-section-title {
-  width: 260px;
+  width: 280px;
   margin: 27px auto 17px;
   padding-bottom: 8px;
   border-bottom: 1px solid #9d3b20;
@@ -399,9 +453,9 @@ body.inline-search-active .nav-search { opacity: 0; }
   content: "";
   position: absolute;
   top: var(--scroll-top);
-  left: 14px;
+  left: 2px;
   z-index: 30;
-  width: 365px;
+  width: 389px;
   height: 17px;
   border: 1px solid rgba(117, 52, 32, 0.55);
   border-radius: 9px;

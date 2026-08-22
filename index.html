@@ -59,11 +59,13 @@
 
       @media (max-width: 600px) {
         .viewport {
-          align-items: flex-start;
+          align-items: center;
+          overflow: hidden;
         }
 
         .page {
-          transform-origin: top center;
+          transform-origin: center center;
+          background: transparent;
         }
       }
 
@@ -281,7 +283,7 @@
         <svg class="kite-line" viewBox="0 0 375 812" aria-hidden="true" focusable="false">
           <path d="M 74 264 C 76 322 82 395 146 482 C 204 558 326 574 356 730" fill="none" stroke="#d6b77e" stroke-width="1.2" stroke-linecap="round" opacity="0.82" />
         </svg>
-        <img class="kite" src="./images/kite3.webp" alt="" />
+        <img class="kite" src="./images/kite3.png" alt="" />
         <div class="cloud cloud-left" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 381.33 228.63">
             <defs>
@@ -340,7 +342,7 @@
             <path class="cloud-right-dot" d="M624,175.94l26.86,3a.51.51,0,0,1,.45.56.52.52,0,0,1-.45.45l-26.86,3a3.52,3.52,0,1,1-.78-7A4.06,4.06,0,0,1,624,175.94Z" transform="translate(-190.14 -33.4)" />
           </svg>
         </div>
-        <img class="bookmark-panel" src="./images/bookmark2.png" alt="" />
+        <img class="bookmark-panel" src="./images/bookmark2.jpg" alt="" />
         <img class="garden" src="./images/garden_silhouette2.webp" alt="" />
         <img class="enter-button" src="./images/button_frame3.svg" alt="" />
         <a class="enter-link" href="home.html" aria-label="进入首页"></a>
@@ -374,11 +376,9 @@
         if (!page) return;
         const viewportWidth = window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth;
         const viewportHeight = window.visualViewport?.height || document.documentElement.clientHeight || window.innerHeight;
-        const isMobile = viewportWidth <= 600;
-        const scale = isMobile
-          ? viewportWidth / DESIGN_WIDTH
-          : Math.min(viewportWidth / DESIGN_WIDTH, viewportHeight / DESIGN_HEIGHT);
+        const scale = Math.min(viewportWidth / DESIGN_WIDTH, viewportHeight / DESIGN_HEIGHT);
         page.style.transform = `scale(${scale})`;
+        page.style.marginBottom = "0px";
       }
 
       window.addEventListener("resize", resizePage);
